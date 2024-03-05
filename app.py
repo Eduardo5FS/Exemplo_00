@@ -10,7 +10,7 @@ app = Flask(__name__)
 path = 'data/'
 Person.read(path)
 prev_option = ""
-
+a=0
 @app.route("/", methods=["post","get"])
 def index():
     global prev_option
