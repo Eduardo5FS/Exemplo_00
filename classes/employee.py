@@ -7,40 +7,43 @@ class Employee(Gclass):
     sortkey = ''
     auto_number = 0
     nkey = 1
-    att = ['_employee_id','_password']
+    att = ['_id_employee','_password']
     
     header = 'Employee'
     des = ['Employee ID','Password']
-    # Constructor: Called when an object is instantiated
-    def __init__(self, employee_id, password):
+    
+    def __init__(self, id_employee, password):
         super().__init__()
-        self._employee_id = employee_id
+        self._id_employee = id_employee
         self._password = password
         
-        Employee.obj[employee_id] = self
-        Employee.lst.append(employee_id)
+        Employee.obj[id_employee] = self
+        Employee.lst.append(id_employee)
     # Object properties
     # getter methodes
     # code property getter method
     @property
-    def employee_id(self):
-        return self._employee_id
+    def id_employee(self):
+        return self._id_employee
     # password property getter method
     @property
     def password(self):
         return self._login
-    @employee_id.setter
-    def employee_id(self,employee_id):
-        self._employee_id = employee_id
+    @id_employee.setter
+    def id_employee(self,id_employee):
+        self._id_employee = id_employee
     @password.setter
     def password(self, password):
         self._password = password
 
-    def login(self, employee_id, password):
-        if self._employee_id == employee_id and self._password == password:
-            return True
-        else:
-            return False
-    
-    def view_appointments(self):
-        return Appointment.get_all_appointments()
+    @staticmethod          
+    def login(id_employee,password):
+       verify=False
+       for e in Employee.lst:
+           if str(password)==Employee.obj[e].password and str(id_employee)==Employee.obj[e].id_employee:
+               verify=True
+               e_code = Employee.obj[e].id_employee
+               return e_code
+       if not verify:
+           print("User not found!")
+           return None
