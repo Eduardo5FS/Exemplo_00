@@ -64,5 +64,5 @@ class PatientAppointment(Gclass):
             print('Patient ', id_patient, ' not found')    
             
     @classmethod
-    def lucro_diario:
+    def lucro_diario:   #ACABAR!
         
