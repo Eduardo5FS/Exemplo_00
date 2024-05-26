@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clínica Dentária</title>
+    
+    
+    {% block title %}
+    {% endblock %}
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+            {% if ulogin == None %}
+                <li><a class="button" href="/login">Login</a></li>
+            {% else %}
+                <li><a class="button" href="/logoff">Logoff</a></li>
+                {% if usergroup == "Dentist" %}
+                    <li><a class="button" href="{{ url_for('dentist_profile') }}">Dentist</a></li>
+                {% endif %}
+                
+                {% if usergroup == "Patient" %}
+                    <li><a class="button" href="/submenu?subm=patient">Patient</a></li>
+                    <li><a class="button" href="/submenu?subm=appointment">Appointment</a></li>
+                    <li><a class="button" style="color:green">User: {{ulogin}}</a></li>
+                <br><br>
+                {% endif %}
+                
+                {% if usergroup == "Employee" %}
+                    <li><a class="button" href="/submenu?subm=patient">Employee</a></li>
+                    <li><a class="button" href="/submenu?subm=appointment">Appointment</a></li>
+                    <li><a class="button" style="color:green">User: {{ulogin}}</a></li>
+                {% endif %}
+                
+                {% if submenu == "patient" %}
+                    <li><a class="button" href="/subform/CustomerOrder_OrderProduct?option=''&subm=order">Appointments</a></li>
+                    <li><a class="button" href="/order/mapa?option=''">Dentists</a></li>
+                {% endif %}
+                {% if submenu == "Dentist" %}
+                    <li><a class="button" href="/Dentistform?subm=product">Appointments</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

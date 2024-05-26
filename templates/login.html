@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
+{% block content %}
+    <!-- Logo image -->
+    <div style="text-align: center;">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Clinic Logo" style="width: 400px; height: auto;">
+    </div>
+
+    <div class="dados" style="text-align: center;">
+        <br><br>
+        <h1 style="font-family: Banscript; font-weight: bold; margin-top: -100px;">Login</h1>
+        <br>
+        <form id="form" action="/chklogin" method="post">
+            <label for="user" style="margin-top: -100px;">User:</label>
+            <input type="text" id="user" name="user" value="{{ user }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            <label for="password" style="margin-top: -100px;">Password:</label>
+            <input type="password" id="password" name="password" value="{{ password }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            <button type="submit" class="button1" style="padding: 10px 20px; margin-top: -100px; width: 80px;">Login</button>
+        </form>
+        <br><br>
+        
+        <!-- Botão de registro -->
+        <button onclick="window.location.href='/register'" class="button1" style="padding: 10px 20px; margin-top: -60px; width: 80px;">Register</button>
+        <!-- Mensagem Wrong Password -->
+        <h3 style="font-family: Arial; color:red; font-weight: bold; margin-top: 20px;">{{ resul }}</h3>
+    </div>
+
+{% endblock %}
+
+
+

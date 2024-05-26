@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+    <title>Horário das Consultas</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="dados">
+            <img src="{{ url_for('static', filename='images/calendario.png') }}" alt="Imagem do Perfil" style="display: block; margin: 20px auto; width: 150px; height: auto;">
+            <h1>Marcação de Consulta</h1>
+            <br>
+            
+            <!-- Horário -->
+            <table class="tabelah">
+                <tr>
+                    {% for header in objh.colunas %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+                {% for linha in objh.semanaTree %}
+                    {% if loop.index-1 >= objh.horaIni and loop.index-1 <= objh.horaFim %}
+                        <tr>
+                            <td>{{ objh.horas[loop.index-1] }}</td>
+                            {% for cel in linha %}
+                                <td>
+                                    <input type="text" value="{{ cel.texto }}" readonly wrap="soft" style="background-color: {{ cel.cor }}" onclick="window.location.href = '/hform/{{ cname }}?option=selcel&codev={{ cel.codeevent }}'">
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}  
+            </table>
+            
+            <br>
+            <table class="dados">
+                <tr>
+                    <!-- Área de edição -->
+                    <td class="dados"> 
+                        <form id="form" action="/save" method="post">
+                            <table>
+                                <tr>
+                                    <td><label for="_data">Data:</label><br>
+                                        <input type="date" {{ butedit }} id="_data" name="_data" value="{{ obj['_data'] }}" size="30">
+                                    </td>
+                                    <td><label for="_hora">Hora:</label><br>
+                                        <select name="_hora" id="_hora" {{ butedit }}>
+                                            <option value="" disabled selected hidden>Selecione a hora</option>
+                                            {% for hora in range(9, 19) %}
+                                                {% if hora != 13 %}
+                                                    <option value="{{ hora }}:00">{{ hora }}:00</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <label for="_motivo">Motivo:</label><br>
+                                        <select name="_motivo" id="_motivo" {{ butedit }}>
+                                            <option value="" disabled selected hidden>Selecione o motivo</option>
+                                            <option value="HigieneOral">HigieneOral</option>
+                                            <option value="Cáries">Cáries</option>
+                                            <option value="Desvitalização">Desvitalização</option>
+                                            <option value="Implantologia">Implantologia</option>
+                                            <option value="Ortodontia">Ortodontia</option>
+                                            <option value="Periodontologia">Periodontologia</option>
+                                            <option value="Próteses">Próteses</option>
+                                            <!-- Adicione mais opções conforme necessário -->
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><label for="_medico">Médico:</label><br>
+                                        <select name="_medico" id="_medico" {{ butedit }}>
+                                            <option value="" disabled selected hidden>Selecione o médico</option>
+                                            {% for dentista in lista_dentistas %}
+                                                <option value="{{ dentista }}">{{ dentista }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br>
+                            <button id="save" type="submit" class="button1" {{ butedit }} style="font-size: 18px;">Save</button>
+                        </form>
+                        <button id="back" type="button" class="button1" onclick="window.location.href = '/patient_profile'" style="font-size: 18px;">Voltar</button>
+                    </td>
+                    
+                    <!-- Área de lista -->
+                    <td>
+                        <table>
+                            {% for linha in objh.eventsdiahseleted %}
+                                <tr>                  
+                                    <td>
+                                        <input type="text" value="{{ linha[1] }}" size="{{ linha[2] }}" onclick="window.location.href = '/hform/{{ cname }}?option=selcel&codev={{ linha[0] }}'">
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+

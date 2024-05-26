@@ -1,4 +1,10 @@
-# Class User - generic version
+# -*- coding: utf-8 -*-
+"""
+@author: António Brito / Carlos Bragança
+(2022)
+#objective: class Person
+"""""
+#%% Class User - generic version
 # import sys
 import bcrypt
 # Import the generic class
@@ -52,19 +58,17 @@ class Userlogin(Gclass):
 
     @classmethod
     def chk_password(self, user, password):
-        Userlogin.username = ''
         if user in Userlogin.obj:
             obj = Userlogin.obj[user]
             valid = bcrypt.checkpw(password.encode(), obj._password.encode())
-            if valid:
-                Userlogin.username = user
-                message = "Valid"
-            else:
-                message = 'Wrong password'
+            message = "Valid"
+            if not valid:
+                message = 'Wrong password!'
         else:
-            message = 'No existent user'
+            message = 'No existent user!'
         return message
     @classmethod
     def set_password(self, password):
         passencrypted = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
         return passencrypted.decode()
+    

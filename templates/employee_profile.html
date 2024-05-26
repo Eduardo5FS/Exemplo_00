@@ -1,0 +1,23 @@
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+                <li><a class="button" href="/logoff">Logoff</a></li>
+                <li><a class="button" href="/gform/Dentist">Lista de Dentistas</a></li>
+                <li><a class="button" href="/dentist_profile">Lista de Pacientes</a></li>
+                <li><a class="button" href="/dentist_profile">Consultas</a></li>
+        </ul>
+    </nav>
+{% block content %}
+    <div class="dados">
+        <h1>Perfil do Funcionário</h1>
+        <p><strong>ID do Funcionário:</strong> {{ employee.id_employee }}</p>
+        <p><strong>Nome:</strong> {{ employee.firstname + ' ' + employee.lastname}}</p>
+        
+        <!-- Não é seguro exibir a senha -->
+    </div>
+    <br>
+{% endblock %}

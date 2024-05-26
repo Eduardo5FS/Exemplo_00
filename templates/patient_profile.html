@@ -1,0 +1,30 @@
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Perfil do Paciente</title>
+{% endblock %}
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+                <li><a class="button" href="/logoff">Logoff</a></li>
+                <li><a class="button" href="/gform/Dentist">Lista de Dentistas</a></li>
+                <li><a class="button" href="/marcacao">Marcação de Consultas</a></li>
+                <li><a class="button" href="/marcacao">Próximas Consultas</a></li>
+        </ul>
+    </nav>
+{% block content %}
+    <div class="dados">
+        <img src="{{ url_for('static', filename='images/foto_patient.png') }}" alt="Imagem do Perfil" style="display: block; margin: 20px auto; width: 150px; height: auto;">
+        <h1>Perfil do Paciente</h1>
+        <p><strong>ID do Paciente:</strong> {{ patient.id_patient }}</p>
+        <p><strong>Nome:</strong> {{ patient.firstname + ' ' + patient.lastname}}</p>
+        <p><strong>Data de Nascimento (AAAA-mm-dd):</strong> {{ patient.birthdate }}</p>
+        <p><strong>Telefone:</strong> {{ patient.telefone }}</p>
+        <p><strong>Email:</strong> {{ patient.email }}</p>
+        <p><strong>Sexo:</strong> {{ patient.sexo }}</p>
+        <!-- Não é seguro exibir a senha -->
+    </div>
+    <br>
+{% endblock %}
+
+

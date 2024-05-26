@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun May 12 20:58:51 2024
+
+@author: 6834422
+"""
+
 from classes.gclass import Gclass
 import datetime
 
@@ -8,17 +15,17 @@ class Patient(Gclass):
     sortkey = ''
     auto_number = 0
     nkey = 1
-    att = ['_id_patient','_password']
+    att = ['_id_patient','_firstname','_lastname','_birthdate','_telefone','_email','_sexo','_password']
     
     header = 'Patient'
-    des = ['Patient ID','Password']
+    des = ['Patient ID','Firstname','Lastname','Birthdate','Telefone','Email','Sexo','Password']
     
     def __init__(self, id_patient, firstname, lastname, birthdate, telefone, email, sexo, password):
         super().__init__()
         self._id_patient = id_patient
         self._firstname = firstname
         self._lastname = lastname
-        self._birthdate = datetime.strptime(birthdate,"%Y-%m-%d").date()
+        self._birthdate = birthdate
         self._telefone = telefone
         self._email = email
         self._sexo = sexo
@@ -36,6 +43,24 @@ class Patient(Gclass):
     @property
     def password(self):
         return self._login
+    @property
+    def firstname(self):
+        return self._firstname
+    @property 
+    def lastname(self):
+        return self._lastname
+    @property 
+    def birthdate(self):
+        return self._birthdate
+    @property 
+    def telefone(self):
+        return self._telefone
+    @property 
+    def email(self):
+        return self._email
+    @property 
+    def sexo(self):
+        return self._sexo
     @id_patient.setter
     def id_patient(self,id_patient):
         self._id_patient = id_patient
@@ -54,7 +79,3 @@ class Patient(Gclass):
        if not verify:
            print("User not found!")
            return None
-       
-        
-        
-        

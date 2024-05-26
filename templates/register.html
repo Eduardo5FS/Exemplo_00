@@ -1,0 +1,57 @@
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
+{% block content %}
+    <!-- Logo image -->
+    <div style="text-align: center;">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Clinic Logo" style="width: 400px; height: auto;">
+    </div>
+
+    <div class="dados" style="text-align: center;">
+        <br><br>
+        <h1 style="font-family: Banscript; font-weight: bold; margin-top: -100px;">Register</h1>
+        <br>
+        <form id="form" action="{{ url_for('register') }}" method="post">
+            <label for="id" style="margin-top: -100px;">ID:</label>
+            <input type="text" id="id" name="id" value="{{ id }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            
+            <label for="firstname" style="margin-top: -100px;">Firstname:</label>
+            <input type="text" id="firstname" name="firstname" value="{{ firstname }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            
+            <label for="lastname" style="margin-top: -100px;">Lastname:</label>
+            <input type="text" id="lastname" name="lastname" value="{{ lastname }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            
+            <label for="birthdate" style="margin-top: -100px;">Data de Nascimento (AAAA-mm-dd):</label>
+            <input type="text" id="birthdate" name="birthdate" value="{{ birthdate }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            
+            <label for="telefone" style="margin-top: -100px;">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" value="{{ telefone }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            
+            <label for="email" style="margin-top: -100px;">Email:</label>
+            <input type="text" id="email" name="email" value="{{ email }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            
+            <label for="sexo" style="margin-top: -100px;">Sexo:</label>
+            <input type="text" id="sexo" name="sexo" value="{{ sexo }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            
+            <label for="password" style="margin-top: -100px;">Password:</label>
+            <input type="password" id="password" name="password" value="{{ password }}" size="30" style="margin-top: -100px;"/>
+            <br><br>
+            
+            <button type="submit" class="button1" style="padding: 10px 20px; margin-top: 0px; width: 80px;">Register</button>
+        </form>
+        <br><br>
+        <h3 style="font-family: Arial; color:red; font-weight: bold; margin-top: 20px;">{{ resul }}</h3>
+    </div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,29 @@
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+                <li><a class="button" href="/logoff">Logoff</a></li>
+                <li><a class="button" href="/gform/Dentist">Pacientes</a></li>
+                <li><a class="button" href="/agenda">Consultas</a></li>
+        </ul>
+    </nav>
+{% block content %}
+    <div class="dados">
+    <img src="{{ url_for('static', filename='images/foto_dentist.png') }}" alt="Imagem do Perfil" style="display: block; margin: 20px auto; width: 150px; height: auto;">
+        <h1>Perfil do Dentista</h1>
+        <p><strong>Cédula Profissional:</strong> {{ dentist.cedula_prof }}</p>
+        <p><strong>Nome:</strong> {{ dentist.firstname + ' ' + dentist.lastname}}</p>
+        <p><strong>Data de Nascimento:</strong> {{ dentist.birthdate }}</p>
+        <p><strong>Telefone:</strong> {{ dentist.telefone }}</p>
+        <p><strong>Email:</strong> {{ dentist.email }}</p>
+        <!-- Não é seguro exibir a senha -->
+    </div>
+    <br>
+
+{% endblock %}
+
+
+

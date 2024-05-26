@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun May 12 20:56:27 2024
+
+@author: 6834422
+"""
+
 from classes.gclass import Gclass
 import datetime
 
@@ -8,17 +15,17 @@ class Dentist(Gclass):
     sortkey = ''
     auto_number = 0
     nkey = 1
-    att = ['_cedula_prof','_password']
+    att = ['_cedula_prof','_firstname','_lastname','_birthdate','_telefone','_email','_password']
     
     header = 'Dentist'
-    des = ['Cedule Prof.','Password']
+    des = ['Cedule Prof.','Firstname','Lastname','Birthdate','Telefone','Email','Password']
     
     def __init__(self, cedula_prof, firstname, lastname, birthdate, telefone, email, password):
         super().__init__()
         self._cedula_prof = cedula_prof
         self._firstname = firstname
         self._lastname = lastname
-        self._birthdate = datetime.strptime(birthdate,"%Y-%m-%d").date()
+        self._birthdate = birthdate
         self._telefone = telefone
         self._email = email
         self._password = password
@@ -32,6 +39,21 @@ class Dentist(Gclass):
     def cedula_prof(self):
         return self._cedula_prof
     # password property getter method
+    @property 
+    def firstname(self):
+        return self._firstname
+    @property 
+    def lastname(self):
+        return self._lastname
+    @property 
+    def birthdate(self):
+        return self._birthdate
+    @property 
+    def telefone(self):
+        return self._telefone
+    @property 
+    def email(self):
+        return self._email
     @property
     def password(self):
         return self._login
@@ -54,4 +76,8 @@ class Dentist(Gclass):
            print("User not found!")
            return None
        
-        
+    @staticmethod
+    def get_dentist_names():
+        return [Dentist.obj[cedula_prof].firstname + " " + Dentist.obj[cedula_prof].lastname for cedula_prof in Dentist.lst]
+    
+    
