@@ -184,69 +184,88 @@ horarios_disponiveis = [
 ]
 
 
+        
 @app.route('/marcar_consulta', methods=['POST'])
 def marcar_consulta():
     if request.method == 'POST':
         id_patient = request.form.get('id_patient')
-        cedula_prof = request.form.get('_medico')
+        nome_medico = request.form.get('_medico')
+        cedula_prof = obter_cedula_medico(nome_medico)  # Obter a cédula do médico
         date = request.form.get('_data')
         time = request.form.get('_hora')
         motivo = request.form.get('_motivo')
 
+        # Verificar se todos os campos obrigatórios estão preenchidos
+        if not all([id_patient, cedula_prof, date, time, motivo]):
+            return "Erro: Todos os campos devem ser preenchidos."
+
+        print(f"Dados Recebidos: id_patient={id_patient}, cedula_prof={cedula_prof}, date={date}, time={time}, motivo={motivo}")
+
         try:
-            # Conecte-se ao banco de dados SQLite e obtenha um cursor
             conn = get_db()
             cur = conn.cursor()
 
-            # Insira os dados na tabela Appointment
             cur.execute('''INSERT INTO Appointment (date, time, id_patient, cedula_prof, motivo) VALUES (?, ?, ?, ?, ?)''',
                         (date, time, id_patient, cedula_prof, motivo))
             
-            # Commit para salvar as alterações
             conn.commit()
         except sqlite3.Error as e:
-            # Lide com erros de banco de dados
             print("Erro ao salvar consulta no banco de dados:", e)
             return "Erro ao salvar consulta no banco de dados: " + str(e)
         finally:
-            # Feche a conexão com o banco de dados
             conn.close()
 
-        # Redirecione de volta para a página de marcação de consulta
         return redirect('/marcacao')
 
 
+def obter_cedula_medico(nome_medico):
+    try:
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute("SELECT cedula_prof FROM Dentist WHERE firstname  ||' '||  lastname = ?", (nome_medico,))
+        resultado = cur.fetchone()
+        if resultado:
+            return resultado[0]
+        else:
+            return None
+    except sqlite3.Error as e:
+        print("Erro ao buscar cédula no banco de dados:", e)
+        return None
+    finally:
+        conn.close()
+        
 @app.route('/save', methods=['POST'])
 def save_appointment():
     if request.method == 'POST':
-        id_patient = request.form.get('id_patient')
-        cedula_prof = request.form.get('_medico')
-        date = request.form.get('date')
-        time = request.form.get('time')
-        motivo = request.form.get('motivo')
+        code =  random.randint(100, 999)
+        id_patient = session.get("user")
+        nome_medico = request.form.get('_medico')
+        cedula_prof =  obter_cedula_medico(nome_medico)  # Obter a cédula do médico
+        date = request.form.get('_data')
+        time = request.form.get('_hora')
+        motivo = request.form.get('_motivo')
+
+
+        # Verificar se todos os campos obrigatórios estão preenchidos
+        if not all([code, id_patient, cedula_prof, date, time, motivo]):
+            return "Erro: Todos os campos devem ser preenchidos."
+
 
         try:
-            # Conecte-se ao banco de dados SQLite e obtenha um cursor
             conn = get_db()
             cur = conn.cursor()
 
-            # Insira os dados na tabela Appointment
-            cur.execute('''INSERT INTO Appointment (date, time, id_patient, cedula_prof, motivo) VALUES (?, ?, ?, ?, ?)''',
-                        (date, time, id_patient, cedula_prof, motivo))
-            
-            # Commit para salvar as alterações
+            cur.execute('''INSERT INTO Appointment (code, date, time, id_patient, cedula_prof, motivo) VALUES (?, ?, ?, ?, ?, ?)''',
+                        (code, date, time, id_patient, cedula_prof, motivo))
+
             conn.commit()
         except sqlite3.Error as e:
-            # Lide com erros de banco de dados
             print("Erro ao salvar consulta no banco de dados:", e)
             return "Erro ao salvar consulta no banco de dados: " + str(e)
         finally:
-            # Feche a conexão com o banco de dados
             conn.close()
 
-        # Redirecione de volta para a página de marcação de consulta
         return redirect('/marcacao')
-
     
     
 @app.route('/get_cedula_profissional')
