@@ -1,21 +1,21 @@
 from classes.gclass import Gclass
 import datetime
 
-class Chefe(Gclass):
+class Admin(Gclass):
     obj = dict()
     lst = list()
     pos = 0
     sortkey = ''
     auto_number = 0
     nkey = 1
-    att = ['_cedula_prof','_firstname','_lastname','_birthdate','_telefone','_email','_password']
+    att = ['_cod_adn','_firstname','_lastname','_birthdate','_telefone','_email','_password']
     
-    header = 'Chefe'
-    des = ['Cedule Prof.','Firstname','Lastname','Birthdate','Telefone','Email','Password']
+    header = 'Admin'
+    des = ['Cod Admin','Firstname','Lastname','Birthdate','Telefone','Email','Password']
     
-    def __init__(self, cedula_prof, firstname, lastname, birthdate, telefone, email, password):
+    def __init__(self, cod_adn, firstname, lastname, birthdate, telefone, email, password):
         super().__init__()
-        self._cedula_prof = cedula_prof
+        self._cedula_prof = cod_adn
         self._firstname = firstname
         self._lastname = lastname
         self._birthdate = birthdate
@@ -23,14 +23,14 @@ class Chefe(Gclass):
         self._email = email
         self._password = password
         
-        Chefe.obj[cedula_prof] = self
-        Chefe.lst.append(cedula_prof)
+        Admin.obj[cod_adn] = self
+        Admin.lst.append(cod_adn)
     # Object properties
     # getter methodes
     # code property getter method
     @property
-    def cedula_prof(self):
-        return self._cedula_prof
+    def cod_adn(self):
+        return self._cod_adn
     # password property getter method
     @property 
     def firstname(self):
@@ -50,25 +50,25 @@ class Chefe(Gclass):
     @property
     def password(self):
         return self._login
-    @cedula_prof.setter
-    def cedula_prof(self,cedula_prof):
-        self._cedula_prof = cedula_prof
+    @cod_adn.setter
+    def cod_adn(self,cod_adn):
+        self._cod_adn = cod_adn
     @password.setter
     def password(self, password):
         self._password = password
 
     @staticmethod          
-    def login(cedula_prof,password):
+    def login(cod_adn,password):
        verify=False
-       for d in Chefe.lst:
-           if str(password)==Chefe.obj[d].password and str(cedula_prof)==Chefe.obj[d].cedula_prof:
+       for d in Admin.lst:
+           if str(password)==Admin.obj[d].password and str(cod_adn)==Admin.obj[d].cod_adn:
                verify=True
-               d_code = Chefe.obj[d].cedula_prof
+               d_code = Admin.obj[d].cod_adn
                return d_code
        if not verify:
            print("User not found!")
            return None
        
     @staticmethod
-    def get_dentist_names():
-        return [Dentist.obj[cedula_prof].firstname + " " + Dentist.obj[cedula_prof].lastname for cedula_prof in Dentist.lst]
+    def get_admin_names():
+        return [Admin.obj[cod_adn].firstname + " " + Admin.obj[cod_adn].lastname for cod_adn in Admin.lst]
