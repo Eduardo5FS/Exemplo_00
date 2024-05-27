@@ -44,8 +44,8 @@ import subs_gformT as gfTsub
 import subs_subform as gfsubsub
 import subs_gformE as gfsubE
 import subs_gformP as gfsubP
-import subs_gformPA as gfsubPA
 import subs_gformDA as gfsubDA
+import subs_gformPA as gfsubPA
 
 
 @app.route("/")
@@ -97,15 +97,15 @@ def gformP(cname=''):
     submenu = request.args.get("subm")
     return gfsubP.gformP(cname,submenu)
 
-@app.route("/gformPA/<cname>", methods=["post","get"])
-def gformPA(cname=''):
-    submenu = request.args.get("subm")
-    return gfsubPA.gformPA(cname,submenu)
-
 @app.route("/gformDA/<cname>", methods=["post","get"])
 def gformDA(cname=''):
     submenu = request.args.get("subm")
     return gfsubDA.gformDA(cname,submenu)
+
+@app.route("/gformPA/<cname>", methods=["post","get"])
+def gformPA(cname=''):
+    submenu = request.args.get("subm")
+    return gfsubPA.gformPA(cname,submenu)
 
 @app.route("/uc", methods=["post","get"])
 def uc():
@@ -326,7 +326,8 @@ def consultas_employee():
             appointments = get_all_appointments()
             return render_template("consultas_employee.html", appointments=appointments)
     return redirect(url_for("index"))
-    
+
+
 
 def get_all_appointments():
     # Função para obter todas as consultas de todos os pacientes
@@ -381,7 +382,7 @@ def get_appointments_by_patient_id(patient_id):
         print(f"Erro ao buscar consultas: {e}")
         return []
 
-    
+
 @app.route('/lucro', methods=['GET', 'POST'])
 def lucro_diario():
     if request.method == 'POST':
@@ -393,7 +394,6 @@ def lucro_diario():
     else:
         # Se a solicitação for GET, renderize o template do formulário de registro
         return render_template('lucro.html', lucro_diario = "--", date="YYYY-mm-dd")
-    
     
 def calcular_lucro_diario(date):
     try:
@@ -408,8 +408,8 @@ def calcular_lucro_diario(date):
 
         # Para cada consulta marcada, consultar o preço associado a ela na tabela TypesAppointment e somar ao total
         for appointment in appointments:
-            motivo = appointment[0]
-            cur.execute('''SELECT price FROM types_appointment WHERE types = ?''', (motivo,))
+            motivo = appointment[5]
+            cur.execute('''SELECT preco FROM types_appointment WHERE motivo = ?''', (motivo,))
             preco = cur.fetchone()
             if preco:
                 total_lucro += preco[0]  # Adiciona o preço ao total do lucro

@@ -119,7 +119,7 @@ class Appointment(Gclass):
         total_lucro = 0
         
         # Conectando-se ao banco de dados
-        conn = sqlite3.connect("types_appointment.db")
+        conn = sqlite3.connect("clinica.db")
         cur = conn.cursor()
 
         # Iterando sobre os compromissos
@@ -132,7 +132,7 @@ class Appointment(Gclass):
                 motivo_consulta = appointment.motivo
                 
                 # Consultando o preço associado ao motivo da consulta no banco de dados
-                cur.execute('''SELECT price FROM types WHERE types = ?''', (motivo_consulta,))
+                cur.execute('''SELECT price FROM types_appointment WHERE types = ?''', (motivo_consulta,))
                 preco = cur.fetchone()
 
                 # Se houver um preço associado ao motivo da consulta, adicionamos ao total de lucro
