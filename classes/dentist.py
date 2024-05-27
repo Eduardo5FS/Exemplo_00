@@ -6,7 +6,6 @@ Created on Sun May 12 20:56:27 2024
 """
 
 from classes.gclass import Gclass
-import datetime
 
 class Dentist(Gclass):
     obj = dict()
@@ -29,6 +28,7 @@ class Dentist(Gclass):
         self._telefone = telefone
         self._email = email
         self._password = password
+        self.fullname = f"{firstname} {lastname}"
         
         Dentist.obj[cedula_prof] = self
         Dentist.lst.append(cedula_prof)
@@ -79,5 +79,4 @@ class Dentist(Gclass):
     @staticmethod
     def get_dentist_names():
         return [Dentist.obj[cedula_prof].firstname + " " + Dentist.obj[cedula_prof].lastname for cedula_prof in Dentist.lst]
-    
     

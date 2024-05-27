@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% block title %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-        <title>Médicos Dentistas</title>
-    {% endblock %}
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
 </head>
 <body>
     <nav>
         <ul class="menu">
-            <li><a class="button" href="/logoff">Logoff</a></li>
-            <li><a class="button" href="/gform/Dentist">Lista de Dentistas</a></li>
-            <li><a class="button" href="/marcacao">Marcação de Consultas</a></li>
-            <li><a class="button" href="/marcacao">Próximas Consultas</a></li>
+                <li><a class="button" href="/logoff">Logoff</a></li>
+                <li><a class="button" href="/gformE/Dentist">Lista de Dentistas</a></li>
+                <li><a class="button" href="/gformP/Patient">Lista de Pacientes</a></li>
+                <li><a class="button" href="/consultas_employee">Consultas</a></li>
         </ul>
     </nav>
-    {% block content %}
+{% block content %}
     <div class="dados">
-        <h1>Lista de Dentistas</h1>
+        <h1>{{ 'Lista de Dentistas' }}</h1>
         <br>
         <form id="form" action="/gform/{{ cname }}?option=save" method="post">
             {% for key in att %}
@@ -36,6 +32,4 @@
         <button id="next" type="button" {{ butshow }} onclick="window.location.href = '/gform/{{ cname }}?option=next'" class="button1">Next</button>
         <button id="last" type="button" {{ butshow }} onclick="window.location.href = '/gform/{{ cname }}?option=last'" class="button1">Last</button>
     </div>
-    {% endblock %}
-</body>
-</html>
+{% endblock %}

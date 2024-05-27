@@ -1,0 +1,28 @@
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+                <li><a class="button" href="/logoff">Logoff</a></li>
+                <li><a class="button" href="/gformT/Patient">Lista de Pacientes</a></li>
+                <li><a class="button" href="/gform/Dentist">Lista de Dentistas</a></li>
+                <li><a class="button" href="/consultas_employee">Consultas</a></li>
+                <li><a class="button" href="/lucro">Lucro</a></li>
+        </ul>
+    </nav>
+{% block content %}
+    <div class="dados">
+    <img src="{{ url_for('static', filename='images/adm.png') }}" alt="Imagem do Perfil" style="display: block; margin: 20px auto; width: 150px; height: auto;">
+        <h1>Perfil do Administrador</h1>
+        <p><strong>Código Administrador:</strong> {{ administrador.cod_adm }}</p>
+        <p><strong>Nome:</strong> {{ administrador.firstname + ' ' + administrador.lastname}}</p>
+        <p><strong>Data de Nascimento:</strong> {{ administrador.birthdate }}</p>
+        <p><strong>Telefone:</strong> {{ administrador.telefone }}</p>
+        <p><strong>Email:</strong> {{ administrador.email }}</p>
+        <!-- Não é seguro exibir a senha -->
+    </div>
+    <br>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lucro Diário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+            <li><a class="button" href="/logoff">Logoff</a></li>
+            <li><a class="button" href="/gformT/Patient">Lista de Pacientes</a></li>
+            <li><a class="button" href="/gform/Dentist">Lista de Dentistas</a></li>
+            <li><a class="button" href="/consultas_employee">Consultas</a></li>
+            <li><a class="button" href="/lucro">Lucro</a></li>
+    </ul>
+</nav>
+    <div class="dados">
+        <h1>Lucro Diário</h1>
+        <form action="/lucro" method="POST">
+            <label for="date">Selecione o Dia:</label>
+            <input type="date" id="date" name="date" required>
+            <button type="submit">Calcular Lucro</button>
+        </form>
+        
+        {% if lucro_diario is not none %}
+        <h2>Lucro para o Dia {{ date }}:</h2>
+        <p>O lucro da clínica para o dia {{ date }} é de {{ lucro_diario }}€</p>
+        {% endif %}
+    </div>
+    <br>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,61 @@
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+                <li><a class="button" href="/logoff">Logoff</a></li>
+                <li><a class="button" href="/gformE/Dentist">Lista de Dentistas</a></li>
+                <li><a class="button" href="/gformP/Patient">Lista de Pacientes</a></li>
+                <li><a class="button" href="/consultas_employee">Consultas</a></li>
+        </ul>
+    </nav>
+{% block content %}
+    <style>
+        .centered-content {
+            text-align: center;
+        }
+        .centered-content table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .centered-content table, .centered-content th, .centered-content td {
+            border: 1px solid black;
+        }
+        .centered-content th, .centered-content td {
+            padding: 10px;
+        }
+    </style>
+    <div class="centered-content">
+        <h1>Próximas Consultas</h1>
+        {% if appointments %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Paciente</th>
+                        <th>Médico</th>
+                        <th>Motivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.code }}</td>
+                            <td>{{ appointment.date }}</td>
+                            <td>{{ appointment.time }}</td>
+                            <td>{{ appointment.id_patient }}</td>
+                            <td>{{ appointment.cedula_prof }}</td>
+                            <td>{{ appointment.motivo }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Você não tem consultas marcadas.</p>
+        {% endif %}
+    </div>
+{% endblock %}

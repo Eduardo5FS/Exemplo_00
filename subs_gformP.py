@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun May 26 16:37:12 2024
+Created on Mon May 27 16:47:59 2024
 
 @author: Eduardo Silva
 """
@@ -15,7 +15,7 @@ from classes.userlogin import Userlogin
 prev_option = ""
 
 
-def gformT(cname='',submenu=""):
+def gformP(cname='',submenu=""):
     global prev_option
     ulogin=session.get("user")
     if (ulogin != None):
@@ -71,7 +71,7 @@ def gformT(cname='',submenu=""):
             display_attributes = [att for att in cl.att if att != 'password']
             for att in cl.att:
                 obj[att] = ""
-        return render_template("listpatient.html", butshow=butshow, butedit=butedit,
+        return render_template("lista_pacientes_pemployee.html", butshow=butshow, butedit=butedit,
                         cname=cname, obj=obj, att=cl.att,header=cl.header,des=cl.des,
                         ulogin=session.get("user"),auto_number=cl.auto_number,
                         submenu=submenu)

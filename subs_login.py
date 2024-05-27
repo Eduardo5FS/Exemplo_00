@@ -36,6 +36,8 @@ def check_usergroup(user):
             return redirect(url_for("employee_profile"))
         elif usergroup == "Dentist":
             return redirect(url_for("dentist_profile"))
+        elif usergroup == "Administrador":
+            return redirect(url_for("admin_profile"))
         else:
             return render_template("error.html", message="Perfil de usuário desconhecido")
     return render_template("error.html", message="Usuário não encontrado")

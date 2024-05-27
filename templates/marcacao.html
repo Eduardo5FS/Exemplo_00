@@ -1,10 +1,16 @@
-{% extends 'base.html' %}
-
 {% block title %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
-    <title>Horário das Consultas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 {% endblock %}
-
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+                <li><a class="button" href="/logoff">Logoff</a></li>
+                <li><a class="button" href="/gform/Dentist">Lista de Dentistas</a></li>
+                <li><a class="button" href="/marcacao">Marcação de Consultas</a></li>
+                <li><a class="button" href="/proximas_consultas_patient">Próximas Consultas</a></li>
+        </ul>
+    </nav>
 {% block content %}
     <div class="container">
         <div class="dados">

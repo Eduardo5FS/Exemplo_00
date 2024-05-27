@@ -143,9 +143,8 @@ class Appointment(Gclass):
         conn.close()
 
         return total_lucro
-
-
-
+        
+    
     
 # from classes.appointment import Appointment
 # import datetime
